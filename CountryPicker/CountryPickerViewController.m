@@ -129,7 +129,7 @@ static NSDictionary *dialCode;
     NSString *countryCodeName = [[self class] countryCodes][row];
     NSString *code            = [[self class] diallingCodes][countryCodeName.lowercaseString];
     
-    __strong id<CountryPickerViewControllerDelegate> strongDelegate = delegate;
+    __strong id<CountryPickerViewControllerDelegate> strongDelegate = self.delegate;
     [strongDelegate countryPickerViewController:self didSelectCountryWithName:countryName code:countryCodeName dialCode:code];
 }
 @end
