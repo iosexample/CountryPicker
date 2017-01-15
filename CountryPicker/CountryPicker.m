@@ -112,8 +112,10 @@ static NSDictionary *dialCode;
             {
                 countryName = [[NSLocale localeWithLocaleIdentifier:LangId] displayNameForKey:NSLocaleCountryCode value:code];
             }
-            
-            namesByCode[code] = countryName ?: code;
+            NSArray *unknownCodes = @[@"BV",@"BQ",@"CX",@"CC",@"CW",@"TF",@"GG",@"HM",@"IM",@"JE",@"YT",@"NF",@"PN",@"BL",@"MF",@"GS",@"SS",@"SJ",@"TL",@"UM",@"EH"];
+            if ([unknownCodes containsObject:code] == NO) {
+                namesByCode[code] = countryName ?: code;
+            }
         }
         _countryNamesByCode = [namesByCode copy];
     }
