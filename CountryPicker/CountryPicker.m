@@ -62,7 +62,7 @@ static NSDictionary *dialCode;
 
 //doesn't use _ prefix to avoid name clash with superclass
 @synthesize delegate;
-
+@synthesize labelFont;
 + (NSArray *)countryNames
 {
     static NSArray *_countryNames = nil;
@@ -254,42 +254,32 @@ static NSDictionary *dialCode;
     {
         view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 30)];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(35, 3, 245, 24)];
+        UIImageView *flagView = [[UIImageView alloc] initWithFrame:CGRectMake(3, 3, 24, 24)];
+        flagView.contentMode = UIViewContentModeScaleAspectFit;
+        flagView.tag = 2;
+        [view addSubview:flagView];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(flagView.frame.size.width, 3, 45, 24)];
         label.backgroundColor = [UIColor clearColor];
+        label.textAlignment = NSTextAlignmentRight;
         label.tag = 1;
         if (self.labelFont) {
             label.font = self.labelFont;
         }
         [view addSubview:label];
         
-        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(150, 3, 245, 24)];
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(label.frame)+10, 3, 245, 24)];
         label2.backgroundColor = [UIColor clearColor];
         label2.tag = 3;
         [view addSubview:label2];
-        
-        
-        UIImageView *flagView = [[UIImageView alloc] initWithFrame:CGRectMake(3, 3, 24, 24)];
-        flagView.contentMode = UIViewContentModeScaleAspectFit;
-        flagView.tag = 2;
-        [view addSubview:flagView];
-        
-        
     }
-    
-    ((UILabel *)[view viewWithTag:1]).text = [[self class] countryNames][(NSUInteger)row];
+    NSString *countryName = [[self class] countryNames][(NSUInteger)row];
+    NSString *countryCodeName = [[self class] countryCodes][(NSUInteger)row];
+    NSString *code = [[[self class] diallingCodes] objectForKey:countryCodeName.lowercaseString];
+    ((UILabel *)[view viewWithTag:1]).text = code;
+    ((UILabel *)[view viewWithTag:3]).text = countryName;
     NSString *imagePath = [NSString stringWithFormat:@"CountryPicker.bundle/%@", [[self class] countryCodes][(NSUInteger) row]];
-<<<<<<< HEAD
-    ((UIImageView *)[view viewWithTag:2]).image = [UIImage imageNamed:imagePath];
-    NSString *test =[[self class] countryCodes][(NSUInteger)row];
-    NSString *code = [[[self class] diallingCodes] objectForKey:[test lowercaseString]];
-    ((UILabel *)[view viewWithTag:3]).text = code;
-    
-    
-    
-    
-    
-    
-=======
+
     UIImage *image;
     if ([[UIImage class] respondsToSelector:@selector(imageNamed:inBundle:compatibleWithTraitCollection:)])
         image = [UIImage imageNamed:imagePath inBundle:[NSBundle bundleForClass:[CountryPicker class]] compatibleWithTraitCollection:nil];
@@ -297,8 +287,6 @@ static NSDictionary *dialCode;
         image = [UIImage imageNamed:imagePath];
     ((UIImageView *)[view viewWithTag:2]).image = image;
 
-
->>>>>>> nicklockwood/master
     return view;
 }
 
