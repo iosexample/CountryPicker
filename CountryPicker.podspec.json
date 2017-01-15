@@ -14,7 +14,7 @@
   "platforms": {
     "ios": "4.3"
   },
-  "source_files": "CountryPicker/CountryPicker.{h,m}",
+  "source_files": "CountryPicker/Country*",
   "resources": "CountryPicker/CountryPicker.bundle",
   "requires_arc": true
 }
