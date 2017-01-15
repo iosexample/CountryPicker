@@ -18,8 +18,6 @@
 
 @implementation CountryPickerViewController
 static NSDictionary *dialCode;
-@synthesize delegate;
-@synthesize tv;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tv registerNib:[UINib nibWithNibName:@"CountryTableViewCell" bundle:nil] forCellReuseIdentifier:@"CountryTableViewCell"];
