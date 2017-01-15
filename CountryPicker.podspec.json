@@ -12,7 +12,7 @@
     "tag": "1.2.3"
   },
   "platforms": {
-    "ios": "4.3"
+    "ios": "8.0"
   },
   "source_files": "CountryPicker/Country*.{h,m}",
   "resources": ["CountryPicker/CountryPicker.bundle", "CountryPicker/Country*.xib"],
