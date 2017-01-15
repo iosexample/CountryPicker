@@ -10,6 +10,9 @@
 
 @implementation CountryTableViewCell
 
+@synthesize ivFlag;
+@synthesize lbCountryName;
+@synthesize lbCountryCode;
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
