@@ -100,6 +100,7 @@ static NSDictionary *dialCode;
 }
 #pragma mark - UITableViewDelegate
 -(void)tableView:(__unused UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.searchBar endEditing:YES];
     NSUInteger row = (NSUInteger)indexPath.row;
     CountryModel *model = self.tableItems[row];
     
@@ -108,7 +109,17 @@ static NSDictionary *dialCode;
 }
 #pragma mark - UISearchBarDelegate
 - (void)searchBar:(__unused UISearchBar *)searchBar textDidChange:(nonnull NSString *)searchText {
-    NSPredicate *bPredicate = [NSPredicate predicateWithFormat:@"SELF.name contains[cd] %@", searchText];
-    self.tableItems = [self.countryModels filteredArrayUsingPredicate:bPredicate];
+    if ([searchText isKindOfClass:[NSString class]] && searchText.length > 0) {
+        NSPredicate *bPredicate = [NSPredicate predicateWithFormat:@"SELF.name contains[cd] %@", searchText];
+        self.tableItems = [self.countryModels filteredArrayUsingPredicate:bPredicate];
+    } else {
+        self.tableItems = self.countryModels.copy;
+    }
+}
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:NO animated:YES];
 }
 @end
