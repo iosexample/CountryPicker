@@ -124,5 +124,6 @@ static NSDictionary *dialCode;
 }
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [searchBar setText:@""];
+    [searchBar endEditing:YES];
 }
 @end
