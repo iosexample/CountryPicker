@@ -25,26 +25,7 @@ static NSDictionary *dialCode;
     [self.tv registerNib:[UINib nibWithNibName:@"CountryTableViewCell" bundle:nil] forCellReuseIdentifier:@"CountryTableViewCell"];
 }
 #pragma mark - Data
-+ (NSArray *)countryNames
-{
-    static NSArray *_countryNames = nil;
-    if (!_countryNames)
-    {
-        _countryNames = [[[[self countryNamesByCode] allValues] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] copy];
-    }
-    return _countryNames;
-}
 
-+ (NSArray *)countryCodes
-{
-    static NSArray *_countryCodes = nil;
-    if (!_countryCodes)
-    {
-        _countryCodes = [[[self countryCodesByName] objectsForKeys:[self countryNames] notFoundMarker:@""] copy];
-    }
-    
-    return _countryCodes;
-}
 + (NSDictionary *)diallingCodes
 {
     static dispatch_once_t onceToken;
@@ -57,34 +38,9 @@ static NSDictionary *dialCode;
     
     return dialCode;
 }
-+ (NSDictionary *)countryNamesByCode
-{
-    static NSDictionary *_countryNamesByCode = nil;
-    if (!_countryNamesByCode)
-    {
-        NSMutableDictionary *namesByCode = [NSMutableDictionary dictionary];
-        for (NSString *code in [NSLocale ISOCountryCodes])
-        {
-            NSString *countryName = [[NSLocale currentLocale] displayNameForKey:NSLocaleCountryCode value:code];
-            
-            //workaround for simulator bug
-            if (!countryName)
-            {
-                countryName = [[NSLocale localeWithLocaleIdentifier:LangId] displayNameForKey:NSLocaleCountryCode value:code];
-            }
-            NSArray *unknownCodes = @[@"BV",@"BQ",@"CX",@"CC",@"CW",@"TF",@"GG",@"HM",@"IM",@"JE",@"YT",@"NF",@"PN",@"BL",@"MF",@"GS",@"SS",@"SJ",@"TL",@"UM",@"EH"];
-            if ([unknownCodes containsObject:code] == NO) {
-                namesByCode[code] = countryName ? countryName: code;
-            }
-        }
-        _countryNamesByCode = [namesByCode copy];
-    }
-    return _countryNamesByCode;
-}
 - (NSMutableArray *)countryModels
 {
     if (!_countryModels) {
-        NSMutableDictionary *namesByCode = [NSMutableDictionary dictionary];
         _countryModels = [NSMutableArray new];
         
         for (NSString *code in [NSLocale ISOCountryCodes])
@@ -109,22 +65,7 @@ static NSDictionary *dialCode;
     }
     return _countryModels;
 }
-+ (NSDictionary *)countryCodesByName
-{
-    static NSDictionary *_countryCodesByName = nil;
-    if (!_countryCodesByName)
-    {
-        NSDictionary *countryNamesByCode = [self countryNamesByCode];
-        NSMutableDictionary *codesByName = [NSMutableDictionary dictionary];
-        for (NSString *code in countryNamesByCode)
-        {
-            codesByName[countryNamesByCode[code]] = code;
-            
-        }
-        _countryCodesByName = [codesByName copy];
-    }
-    return _countryCodesByName;
-}
+
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(__unused UITableView *)tableView numberOfRowsInSection:(__unused NSInteger)section {
     return (NSInteger)self.countryModels.count;
