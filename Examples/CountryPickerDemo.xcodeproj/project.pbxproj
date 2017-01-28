@@ -19,6 +19,7 @@
 		01D39FC914E60FBC002FC9B1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D39FC714E60FBC002FC9B1 /* ViewController.xib */; };
 		01D39FD814E60FE1002FC9B1 /* CountryPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D39FD614E60FE1002FC9B1 /* CountryPicker.m */; };
 		3DB456CD1AE7B24B005D85CB /* DiallingCodes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DB456CC1AE7B24B005D85CB /* DiallingCodes.plist */; };
+		A00C23241E3D333F006F9643 /* CountryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C23231E3D333F006F9643 /* CountryModel.m */; };
 		A00F97B31E2B948B0084C2AA /* CountryPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00F97B11E2B948B0084C2AA /* CountryPickerViewController.m */; };
 		A00F97B41E2B948B0084C2AA /* CountryPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A00F97B21E2B948B0084C2AA /* CountryPickerViewController.xib */; };
 		A00F97B81E2B94FD0084C2AA /* CountryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A00F97B61E2B94FD0084C2AA /* CountryTableViewCell.m */; };
@@ -43,6 +44,8 @@
 		01D39FD514E60FE1002FC9B1 /* CountryPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryPicker.h; sourceTree = "<group>"; };
 		01D39FD614E60FE1002FC9B1 /* CountryPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryPicker.m; sourceTree = "<group>"; };
 		3DB456CC1AE7B24B005D85CB /* DiallingCodes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DiallingCodes.plist; sourceTree = "<group>"; };
+		A00C23221E3D333F006F9643 /* CountryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryModel.h; sourceTree = "<group>"; };
+		A00C23231E3D333F006F9643 /* CountryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryModel.m; sourceTree = "<group>"; };
 		A00F97B01E2B948B0084C2AA /* CountryPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryPickerViewController.h; sourceTree = "<group>"; };
 		A00F97B11E2B948B0084C2AA /* CountryPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryPickerViewController.m; sourceTree = "<group>"; };
 		A00F97B21E2B948B0084C2AA /* CountryPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryPickerViewController.xib; sourceTree = "<group>"; };
@@ -130,6 +133,8 @@
 				A00F97B51E2B94FD0084C2AA /* CountryTableViewCell.h */,
 				A00F97B61E2B94FD0084C2AA /* CountryTableViewCell.m */,
 				A00F97B71E2B94FD0084C2AA /* CountryTableViewCell.xib */,
+				A00C23221E3D333F006F9643 /* CountryModel.h */,
+				A00C23231E3D333F006F9643 /* CountryModel.m */,
 			);
 			name = CountryPicker;
 			path = ../CountryPicker;
@@ -204,6 +209,7 @@
 			files = (
 				01D39FBF14E60FBC002FC9B1 /* main.m in Sources */,
 				01D39FC314E60FBC002FC9B1 /* AppDelegate.m in Sources */,
+				A00C23241E3D333F006F9643 /* CountryModel.m in Sources */,
 				01D39FC614E60FBC002FC9B1 /* ViewController.m in Sources */,
 				01D39FD814E60FE1002FC9B1 /* CountryPicker.m in Sources */,
 				A00F97B81E2B94FD0084C2AA /* CountryTableViewCell.m in Sources */,
