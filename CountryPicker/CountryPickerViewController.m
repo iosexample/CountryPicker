@@ -27,11 +27,14 @@ static NSDictionary *dialCode;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tv registerNib:[UINib nibWithNibName:@"CountryTableViewCell" bundle:nil] forCellReuseIdentifier:@"CountryTableViewCell"];
-    self.tableItems =  self.countryModels.copy;
+    [self updateDefault];
 }
 -(void)setTableItems:(NSMutableArray<CountryModel *> *)tableItems {
     _tableItems = tableItems;
     [self.tv reloadData];
+}
+- (void)updateDefault {
+    self.tableItems = self.countryModels.copy;
 }
 #pragma mark - Data
 
@@ -125,5 +128,6 @@ static NSDictionary *dialCode;
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [searchBar setText:@""];
     [searchBar endEditing:YES];
+    [self updateDefault];
 }
 @end
