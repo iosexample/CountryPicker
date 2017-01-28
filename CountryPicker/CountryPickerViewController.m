@@ -13,9 +13,13 @@
 #define LangId @"en_US"  //change Localized country from here for Egypt  set LangId as @"ar_EG"
 
 
-@interface CountryPickerViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface CountryPickerViewController ()
+<UITableViewDelegate, UITableViewDataSource,
+UISearchBarDelegate>
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tv;
-@property (nonatomic) NSMutableArray *countryModels;
+@property (nonatomic) NSMutableArray<CountryModel *> *countryModels;
+@property (nonatomic) NSArray<CountryModel *> *tableItems;
 @end
 
 @implementation CountryPickerViewController
@@ -23,6 +27,11 @@ static NSDictionary *dialCode;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tv registerNib:[UINib nibWithNibName:@"CountryTableViewCell" bundle:nil] forCellReuseIdentifier:@"CountryTableViewCell"];
+    self.tableItems =  self.countryModels.copy;
+}
+-(void)setTableItems:(NSMutableArray<CountryModel *> *)tableItems {
+    _tableItems = tableItems;
+    [self.tv reloadData];
 }
 #pragma mark - Data
 
@@ -42,6 +51,7 @@ static NSDictionary *dialCode;
 {
     if (!_countryModels) {
         _countryModels = [NSMutableArray new];
+        NSArray *unknownCodes = @[@"BV",@"BQ",@"CX",@"CC",@"CW",@"TF",@"GG",@"HM",@"IM",@"JE",@"YT",@"NF",@"PN",@"BL",@"MF",@"GS",@"SS",@"SJ",@"TL",@"UM",@"EH"];
         
         for (NSString *code in [NSLocale ISOCountryCodes])
         {
@@ -52,7 +62,7 @@ static NSDictionary *dialCode;
             {
                 countryName = [[NSLocale localeWithLocaleIdentifier:LangId] displayNameForKey:NSLocaleCountryCode value:code];
             }
-            NSArray *unknownCodes = @[@"BV",@"BQ",@"CX",@"CC",@"CW",@"TF",@"GG",@"HM",@"IM",@"JE",@"YT",@"NF",@"PN",@"BL",@"MF",@"GS",@"SS",@"SJ",@"TL",@"UM",@"EH"];
+            
             if ([unknownCodes containsObject:code] == NO) {
                 CountryModel *model = [CountryModel new];
                 model.name = countryName ?: code;
@@ -68,11 +78,11 @@ static NSDictionary *dialCode;
 
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(__unused UITableView *)tableView numberOfRowsInSection:(__unused NSInteger)section {
-    return (NSInteger)self.countryModels.count;
+    return (NSInteger)self.tableItems.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger row = (NSUInteger)indexPath.row;
-    CountryModel *model = self.countryModels[row];
+    CountryModel *model = self.tableItems[row];
     
     UIImage *image;
     NSString *imagePath = [NSString stringWithFormat:@"CountryPicker.bundle/%@", model.code];
@@ -91,9 +101,14 @@ static NSDictionary *dialCode;
 #pragma mark - UITableViewDelegate
 -(void)tableView:(__unused UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger row = (NSUInteger)indexPath.row;
-    CountryModel *model = self.countryModels[row];
+    CountryModel *model = self.tableItems[row];
     
     __strong id<CountryPickerViewControllerDelegate> strongDelegate = self.delegate;
     [strongDelegate countryPickerViewController:self didSelectCountryWithName:model.name code:model.code dialCode:model.phoneExtension];
+}
+#pragma mark - UISearchBarDelegate
+- (void)searchBar:(__unused UISearchBar *)searchBar textDidChange:(nonnull NSString *)searchText {
+    NSPredicate *bPredicate = [NSPredicate predicateWithFormat:@"SELF.name contains[cd] %@", searchText];
+    self.tableItems = [self.countryModels filteredArrayUsingPredicate:bPredicate];
 }
 @end
