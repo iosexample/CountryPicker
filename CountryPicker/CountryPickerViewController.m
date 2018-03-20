@@ -26,6 +26,9 @@ UISearchBarDelegate>
 static NSDictionary *dialCode;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tv.contentInset = UIEdgeInsetsZero;
+    self.tv.contentOffset = CGPointMake(0, 44);
     [self.tv registerNib:[UINib nibWithNibName:@"CountryTableViewCell" bundle:nil] forCellReuseIdentifier:@"CountryTableViewCell"];
     [self updateDefault];
 }
@@ -68,7 +71,7 @@ static NSDictionary *dialCode;
             
             if ([unknownCodes containsObject:code] == NO) {
                 CountryModel *model = [CountryModel new];
-                model.name = countryName ? @"" : code;
+                model.name = countryName ? countryName : code;
                 model.code = code;
                 model.phoneExtension = [[self class] diallingCodes][code.lowercaseString];
 
