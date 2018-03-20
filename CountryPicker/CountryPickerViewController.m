@@ -68,7 +68,7 @@ static NSDictionary *dialCode;
             
             if ([unknownCodes containsObject:code] == NO) {
                 CountryModel *model = [CountryModel new];
-                model.name = countryName ?: code;
+                model.name = countryName ? @"" : code;
                 model.code = code;
                 model.phoneExtension = [[self class] diallingCodes][code.lowercaseString];
 
